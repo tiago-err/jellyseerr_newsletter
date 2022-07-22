@@ -1,0 +1,146 @@
+<html>
+<style>
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2.5em;
+    }
+
+    .logo {
+        width: 20%;
+    }
+
+    .item-list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0.25rem;
+        text-align: center;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: medium;
+        color: black;
+        position: relative;
+    }
+
+    .item>.bottom-overlay {
+        width: 100%;
+        border-bottom-left-radius: 0.95rem;
+        border-bottom-right-radius: 0.95rem;
+        height: 65%;
+        position: absolute;
+        bottom: 0;
+        background: linear-gradient(rgb(0, 0, 0, 0), rgb(0, 0, 0, 0.9));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        color: rgba(255, 255, 255, 0.99);
+    }
+
+    .item>.bottom-overlay>.title {
+        max-width: 70%;
+        margin-bottom: 0;
+    }
+
+    .item>.mediatype-overlay {
+        position: absolute;
+        width: 100%;
+        margin: 0 1em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .item>.mediatype-overlay>.movie {
+        background-color: #3A82F6;
+        border-radius: 5em;
+        padding: 0.2em;
+        width: 25%;
+        margin: 1em;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.99);
+    }
+
+    .item>.mediatype-overlay>.show {
+        background-color: #9333EA;
+        border-radius: 5em;
+        padding: 0.2em;
+        width: 25%;
+        margin: 1em;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.99);
+    }
+
+    .item>.mediatype-overlay>.added {
+        width: 10%;
+        margin: 1em;
+    }
+
+    .item>.bottom-overlay>.overview {
+        display: -webkit-box;
+        font-size: small;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 95%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        margin-bottom: 8%;
+    }
+
+    .item>img {
+        border-radius: 1rem;
+        filter: drop-shadow(1px 1px 4px rgba(0, 0, 0, 0.7));
+        max-width: fit-content;
+        position: relative;
+    }
+</style>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Welcome Email</title>
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@6.9.96/css/materialdesignicons.min.css" />
+</head>
+
+<body>
+    <div class="logo-container">
+        <img src="{{logo}}" class="logo" />
+    </div>
+    <div class="item-list">
+        {{#each itemList}}
+        <a class="item" href="{{this.url}}">
+            <img src="{{this.posterPath}}" />
+            <div class="bottom-overlay">
+                <p class="title">{{this.title}}</p>
+                <p class="overview">{{this.overview}}</p>
+            </div>
+            <div class="mediatype-overlay">
+                {{#if this.title}}
+                <p class="movie">MOVIE</p>
+                {{else}}
+                <p class="show">SERIES</p>
+                {{/if}}
+                {{#if this.isAdded}}
+                <span class="added">
+                    <img
+                        src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAABgAAAAYADwa0LPAAAHDElEQVRo3sVaW2wUVRj+/ulcdtd2aWm52u4ulVI1ttVowQuKNV7aSgRE8YqSGEGLl8Tom4kxGn2Q+KAvEoxRMCpiuBhdm0AUEeSmSMEoUMF2C9JKsaVblt2Z7fw+7MWZ6eyy292t39PON+ec+b4zZ8/5z/mHkAcw81RVVW8jojnMfDkRVQMoB1AcLzIM4CwznyCiI8y8R5bl74ioN9dnUw6iyzVNewTAUgDXjbGZ/QDWSZL0CRGdHRcDoVCoUhTFFwE8CcA11g6w4DyANdFodJXL5TpVEAPMLGma1gbgdfw3NPKNEDO/Jcvym0QUyZuBcDhcKwjCegANKcwhMBzA0YFOBIIB/H3hDAbVc1BHVACAXCSjVJ6Ayc7J8JRUobasBp5iD4hSPv6grusPOByOYzkbiEQii4noQ9j0+rnIOfxwehf29O7DYGQwq64uU8owZ2ojbp52EyYoE+yKBJn5cUVRNo3ZgKqqywCsASAa+ZAWgr+7HbtO74ama1kJt0ISJNw07Qa0+lrgEp3W2yMAnpFl+b2sDaiqugLAqIod/YfwWecGBNVgTsKtcMsleKDmfjRU1Nvdfk6W5XczNhAfNusBFCU4nXVsPL4Z20/tyKtwK5oq52FR9QIIJBjpEWa+T1GUzRc1EA6HZwqC8DMAd4LTdA0f/r4WHf2HCyo+gYaKOiy74jFIgmSkh5m5UVGUI0bSZJOZZUEQvjCK11nHR79/PG7iAaCj/zA++O0j6Kwb6WIi+oSZTa5MBqLR6AuwTJUbj2/Gwf6OcROfwOGzv2LTiS1W+ppoNPq8rYFQKHQpM79s7olDBR/z6bD95I5Rb56ZX2HmaaMMiKL4EoBLkoa0ED7r3DBuYn1uL5q9d5rFgrG+83OEoheMdLGmaS+aDDBzOWKxTRJfd7fnfapMJ35l3VOY72vF3b4W070hNQh/1zfWKivimmMG4lGl679KQ/jx9O5xEe8pqULbVSvgjC9iLd670OptNpXZdXo3zqlDRuoSTdMeTBpALCROYsdfO3NeYTOBz+3Fs/VtcEmWoNYyuWu6hh/+2mmt/hgACPE/xLUJlpmxt3d/wcVbez4Bf3c7/F3to8rv690PZjZSjcw8RVBVtcnoOTAcwEBkoKDiU/V8KvEA8E9kAD3DJ40Uqap6q0BEc4zskYGLRrA5IdueN+LooFkbEV0vMPPlRrIn2FNQ8c/UPZ1VzxsRsGhj5lqBiGYayb4LZ9I2cofndnhKqrIWP5ZhY0VfqM90TUQ1AoBSIzlknq5MaPU2Y8GM+Xi2vg0+tzdj8bkMG7O2UetSqQDLTisyYr8VbfU2o9UXm5+dohMr657KyESuw8aI8EjYSpUImVbWOGq6zsREPsWngoDYoVMSSpFiW3BrYBu2/PlVxiYKId5R5LBSQQGAadJ3y+6UDWwNbIO/2/xwOxP5+MPawS2XWKlBgZmPG5kpzklpG/F3tad8EzPcvrz9Ye0wxTXFdM3MnSIRHQGQjGM9JR4c7D+UtqGtgW2QBNEUdDlFJ9rqViR/51t8TJt5+iaiowIz7zGStWU1GTXm72q3HU6FEg8AtaWzTNfMvFuQZflbAMkoyVPsQZlSlrEJ63AqlPiJShmqiitN+mVZ/l4goj4APyVYIsKcqY0ZN2z3x863eACYPbXRehS5l4j6EuvAOuOdW6bPtR5ppIX1TeRbvCRIuHn6XCu9DoiH0fGz/m4Y9sRf/LEx6w19YqXOp3ggdti1+LJFRuq8JEleIjorAEA8ubDGWGK+rzXVoWtK+Lvy2/NAbO5vsWwxAbyXSIgkQ4loNLoKsUQDAMAhOrBk5mLQ2JM4OYNAeHDWEuuhb1CSpFWJi6QBl8t1ioheM5ZsqKjHrZW3/G8Gmirnob68zmyK6FVjbs0UzImi+DaAX4zcouoFuLqiAeONuvKrsLD6Hit9QBTFd4yEyQARabquLwGQ3BQIJGDZFUvRUFGH8UJDRT2euHKZ9YR6WNf1h4nIdFyS6nh9ERFtgOV4fdOJLdh+cgcYjEKAQGiqnIeF1feMOl7Xdf1eh8Px5eg6KaCq6nIAq618R/9hrO/83G53lBNiCY4ldm+aASyXZfl9e9NpkDLFFL0Af9c3eUsxzZ1+I1q8zalSTCtlWV6dqn4mSb6FRLQWwKhgPJHk29u7P+uzpIlKGWanT/IN6bq+1G7YZGUAAMLhcE08zXqN3f1YmrUHxwaOoTvYgzPxNGtif60UKSiVJ2CScxK8bg9qS2ehqrgyXZr1QDzN+sfFtGWT6BY1TVsJ4DW7t5EnJBLdbxCRmkmFrJdZZp6madpLAJbDEDvliPMAVkuS9Fa2H4Dk+rHHQwAeBTB7DG0xgL0APpYk6VMi+mcsOvIS6DDzZFVVm4jo+vjnNjMATIL5c5szzPyn5XObv3N99r+u7wW4CgVuCQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0wM1QwMDo0ODoxMSswMDowMIjpqJcAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMDNUMDA6NDg6MTErMDA6MDD5tBArAAAAAElFTkSuQmCC' />
+                </span>
+                {{/if}}
+            </div>
+        </a>
+        {{/each}}
+    </div>
+</body>
+
+</html>

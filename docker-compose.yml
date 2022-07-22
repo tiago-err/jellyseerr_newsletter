@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  jellyseerr_scheduler:
+    container_name: jellyseerr_scheduler
+    build: ./
+    restart: unless-stopped
+    environment:
+      - API_KEY=${API_KEY}
+      - TRENDING_PAGES=${TRENDING_PAGES}
+      - ADDED_AMOUNT=${ADDED_AMOUNT}
+      - MAIL_USER=${MAIL_USER}
+      - MAIL_PASS=${MAIL_PASS}
+      - MAIL_RECEIVERS=${MAIL_RECEIVERS}
+      - JELLYSEER_BASE=${JELLYSEER_BASE}
+      - CRON_TRENDING=${CRON_TRENDING}
+      - CRON_ADDED=${CRON_ADDED}
